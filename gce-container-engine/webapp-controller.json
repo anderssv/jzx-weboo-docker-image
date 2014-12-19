@@ -1,0 +1,25 @@
+{
+  "apiVersion": "v1beta1",
+  "kind": "ReplicationController",
+  "id": "jzx-weboo-controller",
+  "desiredState": {
+    "replicas": 3,
+    "replicaSelector": { "name": "jzx-weboo-web" },
+    "podTemplate": {
+      "desiredState": {
+        "manifest": {
+          "version": "v1beta1",
+          "id": "jzx-weboo-web-controller",
+          "containers": [{
+            "image": "anderssv/jzx-weboo-docker-image",
+            "name": "jzx-weboo-web",
+            "ports": [{ "name": "http-server", "containerPort": 8080 }]
+          }],
+        }
+      },
+      "labels": { "name": "jzx-weboo-web" }
+    },
+  },
+  "labels": { "name": "jzx-weboo-web" }
+}
+

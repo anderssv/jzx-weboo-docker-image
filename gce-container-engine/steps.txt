@@ -1,0 +1,8 @@
+# Steps to install on GCloud Kubernetes
+
+gcloud preview container replicationcontrollers --cluster-name=$CLUSTER_NAME create --zone=$ZONE --config-file=webapp-controller.json
+gcloud preview container services --cluster-name=$CLUSTER_NAME create --zone=$ZONE --config-file=webapp-service.json
+gcloud compute firewall-rules create jzx-weboo-node-8080 --allow=tcp:8080 --target-tags k8s-$CLUSTER_NAME-node
+gcloud compute target-pools create --region=$REGION jzx-weboo-$CLUSTER_NAME
+gcloud compute target-pools add-instances --zone=$ZONE jzx-weboo-$CLUSTER_NAME --instances k8s-$CLUSTER_NAME-node-1 k8s-$CLUSTER_NAME-node-2 k8s-$CLUSTER_NAME-node-3
+gcloud compute forwarding-rules create --region=$REGION --target-pool=jzx-weboo-$CLUSTER_NAME jzx-weboo-$CLUSTER_NAME

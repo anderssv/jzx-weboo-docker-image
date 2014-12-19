@@ -1,0 +1,10 @@
+{
+  "apiVersion": "v1beta1",
+  "kind": "Service",
+  "id": "jzx-weboo-web",
+  "port": 8080,
+  "containerPort": "http-server",
+  "selector": { "name": "jzx-weboo-web" },
+  "createExternalLoadBalancer": true
+}
+
